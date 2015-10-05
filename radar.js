@@ -77,7 +77,7 @@ for (var i = 0; i < radar_data.length; i++) {
     //adjust top by the number of headings.
     if (lastQuadrant != radar_data[i].quadrant) {
         radar.add(pv.Label)         
-            .left( radar_data[i].left )         
+            .left( radar_data[i].left -45)
             .top( radar_data[i].top )  
             .text(  radar_data[i].quadrant )		 
             .strokeStyle( radar_data[i].color )
@@ -100,7 +100,7 @@ for (var i = 0; i < radar_data.length; i++) {
         radar.add(pv.Label)         
             .left( radar_data[i].left + headingFontSize )
             .top( radar_data[i].top + quadrantFontSize + spacer + (stageIdx * headingFontSize) + (offsetIndex * fontSize) )
-            .text( radar_arcs[stageIdx].name)
+            .text( radar_arcs[stageIdx].name )
             .strokeStyle( '#cccccc' )
             .fillStyle( '#cccccc')                    
             .font(headingFontSize + "px Courier New");
@@ -115,12 +115,12 @@ for (var i = 0; i < radar_data.length; i++) {
             .data(itemsByStage[stageIdx])            
             .top( function() { return ( this.i() + (this.index * fontSize) );} )   
             .shape( function(d) {return (d.movement === 't' ? "triangle" : "circle");})                 
-            .cursor( function(d) { return ( d.url !== undefined ? "pointer" : "auto" ); })                                                            
-            .event("click", function(d) { if ( d.url !== undefined ){self.location =  d.url}}) 
+            .cursor( function(d) { return ( d.url !== undefined ? "pointer" : "auto" ); })                                                 .event("click", function(d) { update(d);if ( d.url !== undefined ){self.location =  d.url}})
             .size(fontSize) 
             .angle(45)            
             .anchor("right")                
                 .add(pv.Label)                
+                .event("click", function(d) { update(d);})
                 .text(function(d) {return radar_quadrant_ctr++ + ". " + d.name;} );
 
     radar.add(pv.Dot)       
@@ -133,9 +133,9 @@ for (var i = 0; i < radar_data.length; i++) {
       .bottom(function(d) { var y = polar_to_raster(d.pc.r, d.pc.t)[1];                                 
                             //console.log("name:" + d.name + ", y:" + y); 
                             return y;})
-      .title(function(d) { return d.name;})		 
+      .title(function(d) { return d.name ;})
       .cursor( function(d) { return ( d.url !== undefined ? "pointer" : "auto" ); })                                                            
-      .event("click", function(d) { if ( d.url !== undefined ){self.location =  d.url}}) 
+      .event("click", function(d) { update(d);if ( d.url !== undefined ){self.location =  d.url}})
       .angle(Math.PI)  // 180 degrees in radians !
       .strokeStyle(radar_data[i].color)
       .fillStyle(radar_data[i].color)

@@ -7,27 +7,143 @@
 <script type="text/javascript" charset="utf-8" src="utils.js"></script>
 <script type="text/javascript" charset="utf-8" src="lib/lodash.underscore.min.js"></script>
 <script type="text/javascript" charset="utf-8" src="radars/radarData.js"></script>
+<script src="lib/d3.min.js"></script>
 
 <style type="text/css" media="screen">
   
 #fig {
   height: 1000px;
-  width: 1200px;
+  width: 1400px;
 }
-
+.tech {padding-right: 10px; display:inline-block}
+  .Quad{font-size: 1.5em;}
+  .smltxt{width:50px}
+  .cattitle{padding-right: 10px; display:inline-block}
+  textarea#jsondata {
+    width: 600px;
+    height: 300px;
+}
 </style>
 <script type="text/javascript" src="radar.js" charset="utf-8"></script>
-<script type="text/javascript" charset="utf-8">
 
-</script>
 
 </head>
 
-<body onload="init(h,w);">
+<body onload="init(h,w);form()">
 <h1 id="title" style="text-align: center;"></h1>
 <div id="radar"></div>
 <div>
 <p>^ Item in dispute, additional discussion and context to be provided.</p>
 </div>
+
+  <div id="EditData">
+
+  </div>
+
+  <div>
+    <textarea id="jsondata"></textarea>
+    <input type="button" value="Load" onclick = "reload()">
+  </div>
 </body>
+
+  <script type="text/javascript" charset="utf-8">
+    function reload(){
+      radar_data= JSON.parse( document.getElementById("jsondata").value);
+      init(h,w);
+      form();
+    }
+    id = 0;
+    d3.select("#title").on("click", titlechange);
+
+    function titlechange()
+    {
+      var n = prompt('What new', document.title);
+      if(n!=undefined){
+        d3.select("#title").html(n);
+        document.title = n;
+      }
+
+    }
+
+    function form()
+    {
+    d3.select("#EditData").selectAll("div").remove();
+    Categories = d3.select("#EditData").append("form").selectAll("div").data(radar_data).enter().append("div").attr("class","Quad");
+    Categories.append("div").attr("class","cattitle").text(function(d){return d.quadrant});
+    Categories.append("input").attr("type","button").attr("value", "x").on("click",function(d,i){DeleteAll(d,i)});
+    items = Categories.append("div").selectAll("div")
+      .data(function(d){return d.items}).enter()
+      .append("div").attr("class","tech");
+    items.append("input").attr("type","text")
+      .attr("id",function(d){id++;d.id = id;return "txt"+id})
+      .attr("name",function(d){return d.name})
+      .attr("value", function(d){return d.name})
+      .attr("onChange",function(d){return "updatetxt(this, function(x, val){return x.name = val})"} );
+    items.append("input").attr("type","text").attr("class","smltxt")
+      .attr("value", function(d){return d.pc.r})
+      .attr("onChange",function(d){return "updatetxt(this, function(x, val){return x.pc.r = val})"} );
+    items.append("input").attr("type","text").attr("class","smltxt")
+      .attr("value", function(d){return d.pc.t})
+      .attr("onChange",function(d){return "updatetxt(this, function(x, val){return x.pc.t = val})"} );
+
+    items.append("input").attr("type","button").attr("value", "x").on("click",function(d,i,j){DeleteItem(d.id,i,j)});
+    Categories.append("input").attr("type","button").attr("value", "Add").on("click",function(d,i){AddItem(d,i)});
+    d3.select("#jsondata").text(JSON.stringify(radar_data));
+    }
+
+
+function update(d)
+{
+  r = prompt("new name",d.name + ","+d.pc.r + ","+d.pc.t );
+  if(r!=undefined){
+    n = r.split(',');
+
+    d.name =n[0];
+    d.pc.r = n[1];
+    d.pc.t = n[2];
+    init(h,w);form();
+  }
+}
+    function AddItem(d,i){
+      newobj = {"name":"New", "pc":{"r":0,"t":0},"movement":"c"};
+
+      d.items.push(newobj);
+      init(h,w);
+      form();
+    }
+
+    function DeleteAll(d,i)
+    {
+      console.log(d);
+      console.log(i);
+      d.items=[];
+      init(h,w);
+      form();
+    }
+    function DeleteItem(d,i,j)
+    {
+      radar_data[j].items.splice(i,1);
+      init(h,w);
+      form();
+    }
+
+
+    function updatetxt(obj,fpr)
+    {
+      fpr(d3.select(obj).data()[0],obj.value);
+      init(h,w);
+      form();
+    }
+
+  </script>
 </html>
+
+
+
+
+
+
+
+
+
+

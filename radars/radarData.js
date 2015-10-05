@@ -1,5 +1,5 @@
 //This is the title for your window tab, and your Radar
-document.title = "WotifGroup's Technology Radar (December 2014)";
+document.title = "Technology Radar";
 
 
 //This is the concentic circles that want on your radar
@@ -49,7 +49,7 @@ var h = 1000;
 var w = 1200;
 
 var radar_data = [
-    { "quadrant": "Techniques",
+    { "quadrant": "Trends and Technology",
         "left" : 45,
         "top" : 18,
         "color" : "#8FA227",
@@ -91,7 +91,7 @@ var radar_data = [
         "color" : "#587486",
         "items" : [ 
 
-{ name: 'Docker', pc: { r: 170, t: 19 }, movement: 't' },
+{ name: 'Docker', pc: { r: 170, t: 19 }, movement: 'c' },
   { name: 'bind',    pc: { r: 150, t: 69 },    movement: 'c' },
   { name: 'Appium',    pc: { r: 110, t: 70 },    movement: 'c',    domain: 'mobile, front-end' }, 
  { name: 'Android Studio',    pc: { r: 180, t: 66 },    movement: 'c',    domain: 'mobile, dev' },
@@ -100,7 +100,7 @@ var radar_data = [
   { name: 'Kiwi - iOS unit test',    pc: { r: 120, t: 14 },    movement: 'c',    domain: '' },
   { name: 'BEM',    pc: { r: 160, t: 60 },    movement: 'c',    domain: 'front-end' },
   { name: 'Crashlytics',    pc: { r: 180, t: 5 },    movement: 'c',    domain: 'mobile' },
-  { name: 'Consul',    pc: { r: 170, t: 29 },    movement: 't' }, 
+  { name: 'Consul',    pc: { r: 170, t: 29 },    movement: 'c' },
    { name: 'Swagger Code-Gen',    pc: { r: 180, t: 82 },    movement: 'c' },
    { name: 'PowerMock ^',    pc: { r: 180, t: 46 },    movement: 'c' },
    { name: 'Mockito',    pc: { r: 170, t: 84 },    movement: 'c',    domain: 'back-end' },
@@ -135,19 +135,19 @@ var radar_data = [
         "color" : "#DC6F1D",
         "items" : [
 
-            {"name":"OpenId Connect", "pc":{"r":130,"t":260},"movement":"t"},   
+            {"name":"OpenId Connect", "pc":{"r":130,"t":260},"movement":"c"},
             {"name":"Location based services", "pc":{"r":130,"t":230},"movement":"c"},
             {"name":"Openstack", "pc":{"r":190,"t":190},"movement":"c"},
             {"name":"RHEL 7", "pc":{"r":170,"t":215},"movement":"c"},      
 
             {"name":"App containers", "pc":{"r":250,"t":260},"movement":"c"},
-            {"name":"Google Cloud Data Flow", "pc":{"r":275,"t":260},"movement":"t"},
+            {"name":"Google Cloud Data Flow", "pc":{"r":275,"t":260},"movement":"c"},
             { name: 'Postgres as NoSQL',              pc: { r: 220, t: 255 },              movement: 'c' },
             {"name":"AWS 2014 Innovations", "pc":{"r":270,"t":195},"movement":"c"},
             {"name":"Azure", "pc":{"r":290,"t":265},"movement":"c"},   
-            { name: 'Mesos',              pc: { r: 260, t: 265 },              movement: 't' },
-            { name: 'Marathon',              pc: { r: 240, t: 268 },              movement: 't' },
-            { name: 'Kubernetes',              pc: { r: 270, t: 236 },              movement: 't' },
+            { name: 'Mesos',              pc: { r: 260, t: 265 },              movement: 'c' },
+            { name: 'Marathon',              pc: { r: 240, t: 268 },              movement: 'c' },
+            { name: 'Kubernetes',              pc: { r: 270, t: 236 },              movement: 'c' },
             {"name":"Google App Engine", "pc":{"r":290,"t":255},"movement":"c"},   
             {"name":"Google as corporate platform", "pc":{"r":290,"t":200},"movement":"c"},   
 
