@@ -23,6 +23,23 @@
     width: 600px;
     height: 300px;
 }
+  #EditForm {
+    width: 300px;
+    height: 125px;
+    background-color: #FFA961;
+    position: absolute;
+    left: 10px;
+    top: 0px;
+    padding: 20px;
+    border-radius: 10px;
+    border-color: black;
+    display:none;
+}
+  .inpform div {margin-bottom: 15px;}
+  .inpform .ra, .inpform .th {
+    display: inline-block;
+    padding-right: 10px;
+}
 </style>
 <script type="text/javascript" src="radar.js" charset="utf-8"></script>
 
@@ -32,11 +49,12 @@
 <body onload="init(h,w);form()">
 <h1 id="title" style="text-align: center;"></h1>
 <div id="radar"></div>
-<div>
-<p>^ Item in dispute, additional discussion and context to be provided.</p>
-</div>
 
   <div id="EditData">
+
+  </div>
+
+  <div id="EditForm">
 
   </div>
 
@@ -92,8 +110,45 @@
     }
 
 
+function setformpos(d){
+  popp = d3.select("#EditForm");
+  popp.style("left",event.pageX-20);
+  popp.style("top",event.pageY+10);
+
+}
 function update(d)
 {
+  setformpos(d);
+  setformdata(d);
+}
+function setformdata(d)
+{
+  popp = d3.select("#EditForm");
+  popp.style("display","block");
+  popp.html("");
+  popp.append("input").attr("type","button").attr("value", "X").attr("style","float:right;margin-right:0px").on("click",function(d,i){popp.style("display","none");});
+  pf = popp.append("div").attr("class","inpform")
+    .selectAll("div").data([d]).enter();
+//  pf.append("div").text(function(z){return "Name"});
+  na = pf.append("div");
+  na.append("input").attr("type","text").attr("value", function(z){return z.name}).attr("style","width:220px")
+    .attr("onChange",function(d){return "updatetxt(this, function(x, val){return x.name = val})"} );
+  rad = pf.append("div").attr("class","ra").text(function(z){return "Radius"});
+  radt = rad.append("input").attr("type","text").attr("value", function(z){return z.pc.r}).attr("style","width:30px")
+    .attr("onChange",function(d){return "updatetxt(this, function(x, val){return x.pc.r = val})"} );
+  rad.append("input").attr("type","button").attr("value", "+")
+    .on("click",function(r){r.pc.r = parseInt(r.pc.r) + 10; radt.attr("value",r.pc.r); init(h,w);form();});
+  rad.append("input").attr("type","button").attr("value", "-")
+    .on("click",function(r){r.pc.r = parseInt(r.pc.r) - 10; radt.attr("value",r.pc.r);init(h,w); form();});
+  th = pf.append("div").attr("class","th").text(function(z){return "Angle"});
+  tht = th.append("input").attr("type","text").attr("value", function(z){return z.pc.t}).attr("style","width:30px")
+    .attr("onChange",function(d){return "updatetxt(this, function(x, val){return x.pc.t = val})"} );
+  th.append("input").attr("type","button").attr("value", "+")
+    .on("click",function(r){r.pc.t = parseInt(r.pc.t) + 3; tht.attr("value",r.pc.t); init(h,w); form();});
+  th.append("input").attr("type","button").attr("value", "-")
+    .on("click",function(r){r.pc.t = parseInt(r.pc.t) - 3; tht.attr("value",r.pc.t); init(h,w); form();});
+
+  return;
   r = prompt("new name",d.name + ","+d.pc.r + ","+d.pc.t );
   if(r!=undefined){
     n = r.split(',');
@@ -111,6 +166,7 @@ function update(d)
       init(h,w);
       form();
     }
+
 
     function DeleteAll(d,i)
     {

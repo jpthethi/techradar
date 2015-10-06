@@ -130,7 +130,7 @@ for (var i = 0; i < radar_data.length; i++) {
                             return y;})
       .title(function(d) { return d.name ;})
       .cursor( function(d) { return ( d.url !== undefined ? "pointer" : "auto" ); })                                                            
-      .event("click", function(d) { update(d);if ( d.url !== undefined ){self.location =  d.url}})
+      .event("click", function(d) { update(d, this);if ( d.url !== undefined ){self.location =  d.url}})
       .angle(Math.PI)  // 180 degrees in radians !
       .strokeStyle(radar_data[i].color)
       .fillStyle(radar_data[i].color)
