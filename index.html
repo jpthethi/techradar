@@ -148,30 +148,24 @@ function setformdata(d)
   th.append("input").attr("type","button").attr("value", "-")
     .on("click",function(r){r.pc.t = parseInt(r.pc.t) - 3; tht.attr("value",r.pc.t); init(h,w); form();});
 
-  return;
-  r = prompt("new name",d.name + ","+d.pc.r + ","+d.pc.t );
-  if(r!=undefined){
-    n = r.split(',');
-
-    d.name =n[0];
-    d.pc.r = n[1];
-    d.pc.t = n[2];
-    init(h,w);form();
-  }
 }
     function AddItem(d,i){
-      newobj = {"name":"New", "pc":{"r":0,"t":0},"movement":"c"};
+      console.log(i);
+      if(i==0) t = 135;
+      if(i==1) t = 45;
+      if(i==2) t = 225;
+      if(i==3) t = 315;
+      newobj = {"name":"New", "pc":{"r":350,"t":t},"movement":"c"};
 
       d.items.push(newobj);
       init(h,w);
       form();
+      setformdata(newobj);
     }
 
 
     function DeleteAll(d,i)
     {
-      console.log(d);
-      console.log(i);
       d.items=[];
       init(h,w);
       form();
