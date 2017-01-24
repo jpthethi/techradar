@@ -1,0 +1,12 @@
+{
+  "name": "tr",
+  "version": "0.0.1",
+  "description": "Tech Radar",
+  "dependencies": {
+    "node-static":"*"
+  },
+  "scripts": {
+    "start": "node index.js"
+  }
+}
+
